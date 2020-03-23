@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./lib",
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "exclude": ["./node_modules", "**/*.spec.ts"],
+  "include": ["src/**/*.ts"]
+}
+

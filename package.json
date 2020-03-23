@@ -1,0 +1,26 @@
+{
+  "name": "@2utils/is-equal",
+  "version": "0.0.1",
+  "description": "An ordinary isEqual func",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "lint": "tslint -p tsconfig.json",
+    "pretty": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "test": "jest --config jestconfig.json"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.1.2",
+    "jest": "^25.1.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^25.2.1",
+    "tslint": "^6.0.0",
+    "typescript": "^3.7.5"
+  },
+  "author": "Andrey Podkovyrov <a.podkovyrov@yandex.ru>",
+  "license": "MIT"
+}
