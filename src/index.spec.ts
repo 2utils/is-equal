@@ -58,4 +58,56 @@ describe("isEqual", () => {
 
     expect(result).toBe(true);
   });
+
+  test("should compare arrays", function() {
+    let array1: any[] = [true, null, 1, "a", undefined];
+    let array2: any[] = [true, null, 1, "a", undefined];
+
+    expect(isEqual(array1, array2)).toBe(true);
+
+    array1 = [[1, 2, 3], new Date(2012, 4, 23), /x/, { e: 1 }];
+    array2 = [[1, 2, 3], new Date(2012, 4, 23), /x/, { e: 1 }];
+
+    expect(isEqual(array1, array2)).toBe(true);
+
+    array1 = [1];
+    array1[2] = 3;
+
+    array2 = [1];
+    array2[1] = undefined;
+    array2[2] = 3;
+
+    expect(isEqual(array1, array2)).toBe(true);
+
+    array1 = [
+      Object(1),
+      false,
+      Object("a"),
+      /x/,
+      new Date(2012, 4, 23),
+      ["a", "b", [Object("c")]],
+      { a: 1 }
+    ];
+    array2 = [
+      1,
+      Object(false),
+      "a",
+      /x/,
+      new Date(2012, 4, 23),
+      ["a", Object("b"), ["c"]],
+      { a: 1 }
+    ];
+
+    expect(isEqual(array1, array2)).toBe(true);
+
+    array1 = [1, 2, 3];
+    array2 = [3, 2, 1];
+
+    expect(isEqual(array1, array2)).toBe(false);
+
+    array1 = [1, 2];
+    array2 = [1, 2, 3];
+
+    expect(isEqual(array1, array2)).toBe(false);
+  });
 });

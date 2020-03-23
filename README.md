@@ -10,3 +10,4 @@ npm i @2utils/is-equal
 Tests were brazenly stolen from ```lodash```
 
 - [x] should compare primitives
+- [x] should compare arrays
