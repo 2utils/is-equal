@@ -6,37 +6,45 @@ import {
 } from "./utils";
 
 export default function isEqual(a: any, b: any): boolean {
-  a = isObject(a) ? a.valueOf() : a;
-  b = isObject(b) ? b.valueOf() : b;
-
-  if (!isObject(a)) {
-    return comparePrimitiveLike(a, b);
+  if (a === b) {
+    return true;
   }
 
-  if (!isObject(b)) {
+  if (a == null || b == null) {
     return false;
   }
 
-  if (isInstancesOfDifferentClass(a, b)) {
+  const valueOfA = a.valueOf();
+  const valueOfB = b.valueOf();
+
+  if (!isObject(valueOfA)) {
+    return comparePrimitiveLike(valueOfA, valueOfB);
+  }
+
+  if (!isObject(valueOfB)) {
     return false;
   }
 
-  const isArrayA = Array.isArray(a);
-  const isArrayB = Array.isArray(b);
+  if (isInstancesOfDifferentClass(valueOfA, valueOfB)) {
+    return false;
+  }
+
+  const isArrayA = Array.isArray(valueOfA);
+  const isArrayB = Array.isArray(valueOfB);
 
   if (isArrayA !== isArrayB) {
     return false;
   }
 
-  const objAKeys = isArrayA ? getArrayKeys(a) : Object.keys(a);
-  const objBKeys = isArrayB ? getArrayKeys(b) : Object.keys(b);
+  const objAKeys = isArrayA ? getArrayKeys(valueOfA) : Object.keys(valueOfA);
+  const objBKeys = isArrayB ? getArrayKeys(valueOfB) : Object.keys(valueOfB);
 
   if (objAKeys.length !== objBKeys.length) {
     return false;
   }
 
   for (const key of objAKeys) {
-    const result = isEqual(a[key], b[key]);
+    const result = isEqual(valueOfA[key], valueOfB[key]);
 
     if (!result) {
       return false;
