@@ -210,4 +210,21 @@ describe("isEqual", () => {
 
     expect(isEqual(object1, object2)).toBe(true);
   });
+
+  test("should compare object instances", function() {
+    class Foo {
+      a = 1;
+    }
+    Foo.prototype.a = 1;
+
+    class Bar {
+      a = 1;
+    }
+    Bar.prototype.a = 2;
+
+    expect(isEqual(new Foo(), new Foo())).toBe(true);
+    expect(isEqual(new Foo(), new Bar())).toBe(false);
+    expect(isEqual({ a: 1 }, new Foo())).toBe(false);
+    expect(isEqual({ a: 2 }, new Bar())).toBe(false);
+  });
 });
