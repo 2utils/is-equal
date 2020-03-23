@@ -248,6 +248,122 @@ describe("isEqual", () => {
     expect(isEqual({ constructor: Object }, {})).toBe(false);
   });
 
+  // test("should compare arrays with circular references", function() {
+  //   let array1: any[] = [];
+  //   let array2: any[] = [];
+  //
+  //   array1.push(array1);
+  //   array2.push(array2);
+  //
+  //   expect(isEqual(array1, array2)).toBe(true);
+  //
+  //   array1.push("b");
+  //   array2.push("b");
+  //
+  //   expect(isEqual(array1, array2)).toBe(true);
+  //
+  //   array1.push("c");
+  //   array2.push("d");
+  //
+  //   expect(isEqual(array1, array2)).toBe(false);
+  //
+  //   array1 = ["a", "b", "c"];
+  //   array1[1] = array1;
+  //   array2 = ["a", ["a", "b", "c"], "c"];
+  //
+  //   expect(isEqual(array1, array2)).toBe(false);
+  // });
+
+  // test("should have transitive equivalence for circular references of arrays", function() {
+  //   const array1: any[] = [];
+  //   const array2: any[] = [array1];
+  //   const array3: any[] = [array2];
+  //
+  //   array1[0] = array1;
+  //
+  //   expect(isEqual(array1, array2)).toBe(true);
+  //   expect(isEqual(array2, array3)).toBe(true);
+  //   expect(isEqual(array1, array3)).toBe(true);
+  // });
+
+  // test("should compare objects with circular references", function() {
+  //   let object1: any = {};
+  //   let object2: any = {};
+  //
+  //   object1.a = object1;
+  //   object2.a = object2;
+  //
+  //   expect(isEqual(object1, object2)).toBe(true);
+  //
+  //   object1.b = 0;
+  //   object2.b = Object(0);
+  //
+  //   expect(isEqual(object1, object2)).toBe(true);
+  //
+  //   object1.c = Object(1);
+  //   object2.c = Object(2);
+  //
+  //   expect(isEqual(object1, object2)).toBe(false);
+  //
+  //   object1 = { a: 1, b: 2, c: 3 };
+  //   object1.b = object1;
+  //   object2 = { a: 1, b: { a: 1, b: 2, c: 3 }, c: 3 };
+  //
+  //   expect(isEqual(object1, object2)).toBe(false);
+  // });
+
+  // test("should have transitive equivalence for circular references of objects", function() {
+  //   const object1: any = {};
+  //   const object2: any = { a: object1 };
+  //   const object3: any = { a: object2 };
+  //
+  //   object1.a = object1;
+  //
+  //   expect(isEqual(object1, object2)).toBe(true);
+  //   expect(isEqual(object2, object3)).toBe(true);
+  //   expect(isEqual(object1, object3)).toBe(true);
+  // });
+
+  // test("should compare objects with multiple circular references", function() {
+  //   const array1: any = [{}];
+  //   const array2: any = [{}];
+  //
+  //   (array1[0].a = array1).push(array1);
+  //   (array2[0].a = array2).push(array2);
+  //
+  //   expect(isEqual(array1, array2)).toBe(true);
+  //
+  //   array1[0].b = 0;
+  //   array2[0].b = Object(0);
+  //
+  //   expect(isEqual(array1, array2)).toBe(true);
+  //
+  //   array1[0].c = Object(1);
+  //   array2[0].c = Object(2);
+  //
+  //   expect(isEqual(array1, array2)).toBe(false);
+  // });
+
+  // test("should compare objects with complex circular references", function() {
+  //   const object1: any = {
+  //     foo: { b: { c: { d: {} } } },
+  //     bar: { a: 2 }
+  //   };
+  //
+  //   const object2: any = {
+  //     foo: { b: { c: { d: {} } } },
+  //     bar: { a: 2 }
+  //   };
+  //
+  //   object1.foo.b.c.d = object1;
+  //   object1.bar.b = object1.foo.b;
+  //
+  //   object2.foo.b.c.d = object2;
+  //   object2.bar.b = object2.foo.b;
+  //
+  //   expect(isEqual(object1, object2)).toBe(true);
+  // });
+
   test("should compare objects with shared property values", function() {
     const object1: any = {
       a: [1, 2]
@@ -262,6 +378,22 @@ describe("isEqual", () => {
 
     expect(isEqual(object1, object2)).toBe(true);
   });
+
+  // test("should treat objects created by `Object.create(null)` like plain objects", function() {
+  //   class Foo {
+  //     a = 1;
+  //   }
+  //   // @ts-ignore
+  //   Foo.prototype.constructor = null;
+  //
+  //   const object1 = Object.create(null);
+  //   object1.a = 1;
+  //
+  //   const object2 = { a: 1 };
+  //
+  //   expect(isEqual(object1, object2)).toBe(true);
+  //   expect(isEqual(new Foo(), object2)).toBe(false);
+  // });
 
   test("should avoid common type coercions", function() {
     expect(isEqual(true, Object(false))).toBe(false);

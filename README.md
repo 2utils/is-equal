@@ -19,6 +19,13 @@ Tests were brazenly stolen from ```lodash```
 - [x] should compare object instances
 - [x] should compare functions
 - [x] should compare objects with constructor properties
+- [ ] should compare arrays with circular references
+- [ ] should have transitive equivalence for circular references of arrays
+- [ ] should compare objects with circular references
+- [ ] should have transitive equivalence for circular references of objects
+- [ ] should compare objects with multiple circular references
+- [ ] should compare objects with complex circular references
 - [x] should compare objects with shared property values
+- [ ] should treat objects created by `Object.create(null)` like plain objects
 - [x] should avoid common type coercions
 - [x] should compare `arguments` objects
