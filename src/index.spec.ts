@@ -1,5 +1,7 @@
 import isEqual from ".";
 
+const noop = function() {};
+
 describe("isEqual", () => {
   // @ts-ignore
   const symbol1 = Symbol ? Symbol("a") : true;
@@ -173,6 +175,38 @@ describe("isEqual", () => {
   test("should compare objects regardless of key order", function() {
     const object1 = { a: 1, b: 2, c: 3 };
     const object2 = { c: 3, a: 1, b: 2 };
+
+    expect(isEqual(object1, object2)).toBe(true);
+  });
+
+  test("should compare nested objects", function() {
+    const object1 = {
+      a: [1, 2, 3],
+      b: true,
+      c: Object(1),
+      d: "a",
+      e: {
+        f: ["a", Object("b"), "c"],
+        g: Object(false),
+        h: new Date(2012, 4, 23),
+        i: noop,
+        j: "a"
+      }
+    };
+
+    const object2 = {
+      a: [1, Object(2), 3],
+      b: Object(true),
+      c: 1,
+      d: Object("a"),
+      e: {
+        f: ["a", "b", "c"],
+        g: false,
+        h: new Date(2012, 4, 23),
+        i: noop,
+        j: "a"
+      }
+    };
 
     expect(isEqual(object1, object2)).toBe(true);
   });
