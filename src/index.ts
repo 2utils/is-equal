@@ -14,37 +14,37 @@ export default function isEqual(a: any, b: any): boolean {
     return false;
   }
 
-  const valueOfA = a.valueOf();
-  const valueOfB = b.valueOf();
+  a = a.valueOf();
+  b = b.valueOf();
 
-  if (!isObject(valueOfA)) {
-    return comparePrimitiveLike(valueOfA, valueOfB);
+  if (!isObject(a)) {
+    return comparePrimitiveLike(a, b);
   }
 
-  if (!isObject(valueOfB)) {
+  if (!isObject(b)) {
     return false;
   }
 
-  if (isInstancesOfDifferentClass(valueOfA, valueOfB)) {
+  if (isInstancesOfDifferentClass(a, b)) {
     return false;
   }
 
-  const isArrayA = Array.isArray(valueOfA);
-  const isArrayB = Array.isArray(valueOfB);
+  const isArrayA = Array.isArray(a);
+  const isArrayB = Array.isArray(b);
 
   if (isArrayA !== isArrayB) {
     return false;
   }
 
-  const objAKeys = isArrayA ? getArrayKeys(valueOfA) : Object.keys(valueOfA);
-  const objBKeys = isArrayB ? getArrayKeys(valueOfB) : Object.keys(valueOfB);
+  const objAKeys = isArrayA ? getArrayKeys(a) : Object.keys(a);
+  const objBKeys = isArrayB ? getArrayKeys(b) : Object.keys(b);
 
   if (objAKeys.length !== objBKeys.length) {
     return false;
   }
 
   for (const key of objAKeys) {
-    const result = isEqual(valueOfA[key], valueOfB[key]);
+    const result = isEqual(a[key], b[key]);
 
     if (!result) {
       return false;
