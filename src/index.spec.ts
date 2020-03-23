@@ -135,4 +135,11 @@ describe("isEqual", () => {
     expect(isEqual(array1, array2)).toBe(true);
   });
 
+  test("should compare sparse arrays", function() {
+    const array = Array(1);
+
+    expect(isEqual(array, Array(1))).toBe(true);
+    expect(isEqual(array, [undefined])).toBe(true);
+    expect(isEqual(array, Array(2))).toBe(false);
+  });
 });
