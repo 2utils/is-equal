@@ -247,4 +247,19 @@ describe("isEqual", () => {
     expect(isEqual({ constructor: [1] }, { constructor: ["1"] })).toBe(false);
     expect(isEqual({ constructor: Object }, {})).toBe(false);
   });
+
+  test("should compare objects with shared property values", function() {
+    const object1: any = {
+      a: [1, 2]
+    };
+
+    const object2: any = {
+      a: [1, 2],
+      b: [1, 2]
+    };
+
+    object1.b = object1.a;
+
+    expect(isEqual(object1, object2)).toBe(true);
+  });
 });
