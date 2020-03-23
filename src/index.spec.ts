@@ -110,4 +110,29 @@ describe("isEqual", () => {
 
     expect(isEqual(array1, array2)).toBe(false);
   });
+
+  test("should treat arrays with identical values but different non-index properties as equal", function() {
+    let array1: any = [1, 2, 3];
+    let array2: any = [1, 2, 3];
+
+    array1.every = array1.filter = array1.forEach = array1.indexOf = array1.lastIndexOf = array1.map = array1.some = array1.reduce = array1.reduceRight = null;
+
+    array2.concat = array2.join = array2.pop = array2.reverse = array2.shift = array2.slice = array2.sort = array2.splice = array2.unshift = null;
+
+    expect(isEqual(array1, array2)).toBe(true);
+
+    array1 = [1, 2, 3];
+    array1.a = 1;
+
+    array2 = [1, 2, 3];
+    array2.b = 1;
+
+    expect(isEqual(array1, array2)).toBe(true);
+
+    array1 = /c/.exec("abcde");
+    array2 = ["c"];
+
+    expect(isEqual(array1, array2)).toBe(true);
+  });
+
 });
