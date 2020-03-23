@@ -21,3 +21,4 @@ Tests were brazenly stolen from ```lodash```
 - [x] should compare objects with constructor properties
 - [x] should compare objects with shared property values
 - [x] should avoid common type coercions
+- [x] should compare `arguments` objects

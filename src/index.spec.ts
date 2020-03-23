@@ -274,4 +274,21 @@ describe("isEqual", () => {
     expect(isEqual("36", 36)).toBe(false);
     expect(isEqual(36, "36")).toBe(false);
   });
+
+  test("should compare `arguments` objects", function() {
+    const args1 = (function() {
+      return arguments;
+    })();
+
+    const args2 = (function() {
+      return arguments;
+    })();
+
+    const args3 = (function(...args) {
+      return arguments;
+    })(1, 2);
+
+    expect(isEqual(args1, args2)).toBe(true);
+    expect(isEqual(args1, args3)).toBe(false);
+  });
 });
