@@ -142,4 +142,31 @@ describe("isEqual", () => {
     expect(isEqual(array, [undefined])).toBe(true);
     expect(isEqual(array, Array(2))).toBe(false);
   });
+
+  test("should compare plain objects", function() {
+    let object1: any = { a: true, b: null, c: 1, d: "a", e: undefined };
+    let object2: any = { a: true, b: null, c: 1, d: "a", e: undefined };
+
+    expect(isEqual(object1, object2)).toBe(true);
+
+    object1 = { a: [1, 2, 3], b: new Date(2012, 4, 23), c: /x/, d: { e: 1 } };
+    object2 = { a: [1, 2, 3], b: new Date(2012, 4, 23), c: /x/, d: { e: 1 } };
+
+    expect(isEqual(object1, object2)).toBe(true);
+
+    object1 = { a: 1, b: 2, c: 3 };
+    object2 = { a: 3, b: 2, c: 1 };
+
+    expect(isEqual(object1, object2)).toBe(false);
+
+    object1 = { a: 1, b: 2, c: 3 };
+    object2 = { d: 1, e: 2, f: 3 };
+
+    expect(isEqual(object1, object2)).toBe(false);
+
+    object1 = { a: 1, b: 2 };
+    object2 = { a: 1, b: 2, c: 3 };
+
+    expect(isEqual(object1, object2)).toBe(false);
+  });
 });
