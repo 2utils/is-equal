@@ -17,3 +17,4 @@ Tests were brazenly stolen from ```lodash```
 - [x] should compare objects regardless of key order
 - [x] should compare nested objects
 - [x] should compare object instances
+- [x] should compare functions

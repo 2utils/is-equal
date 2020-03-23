@@ -227,4 +227,16 @@ describe("isEqual", () => {
     expect(isEqual({ a: 1 }, new Foo())).toBe(false);
     expect(isEqual({ a: 2 }, new Bar())).toBe(false);
   });
+
+  test("should compare functions", function() {
+    function a() {
+      return 1 + 2;
+    }
+    function b() {
+      return 1 + 2;
+    }
+
+    expect(isEqual(a, a)).toBe(true);
+    expect(isEqual(a, b)).toBe(false);
+  });
 });
