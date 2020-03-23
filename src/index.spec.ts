@@ -239,4 +239,12 @@ describe("isEqual", () => {
     expect(isEqual(a, a)).toBe(true);
     expect(isEqual(a, b)).toBe(false);
   });
+
+  test("should compare objects with constructor properties", function() {
+    expect(isEqual({ constructor: 1 }, { constructor: 1 })).toBe(true);
+    expect(isEqual({ constructor: 1 }, { constructor: "1" })).toBe(false);
+    expect(isEqual({ constructor: [1] }, { constructor: [1] })).toBe(true);
+    expect(isEqual({ constructor: [1] }, { constructor: ["1"] })).toBe(false);
+    expect(isEqual({ constructor: Object }, {})).toBe(false);
+  });
 });
