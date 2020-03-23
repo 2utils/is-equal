@@ -262,4 +262,16 @@ describe("isEqual", () => {
 
     expect(isEqual(object1, object2)).toBe(true);
   });
+
+  test("should avoid common type coercions", function() {
+    expect(isEqual(true, Object(false))).toBe(false);
+    expect(isEqual(Object(false), Object(0))).toBe(false);
+    expect(isEqual(false, Object(""))).toBe(false);
+    expect(isEqual(Object(36), Object("36"))).toBe(false);
+    expect(isEqual(0, "")).toBe(false);
+    expect(isEqual(1, true)).toBe(false);
+    expect(isEqual(1337756400000, new Date(2012, 4, 23))).toBe(false);
+    expect(isEqual("36", 36)).toBe(false);
+    expect(isEqual(36, "36")).toBe(false);
+  });
 });
