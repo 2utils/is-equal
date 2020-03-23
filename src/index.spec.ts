@@ -169,4 +169,11 @@ describe("isEqual", () => {
 
     expect(isEqual(object1, object2)).toBe(false);
   });
+
+  test("should compare objects regardless of key order", function() {
+    const object1 = { a: 1, b: 2, c: 3 };
+    const object2 = { c: 3, a: 1, b: 2 };
+
+    expect(isEqual(object1, object2)).toBe(true);
+  });
 });

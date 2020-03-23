@@ -14,3 +14,4 @@ Tests were brazenly stolen from ```lodash```
 - [x] should treat arrays with identical values but different non-index properties as equal
 - [x] should compare sparse arrays
 - [x] should compare plain objects
+- [x] should compare objects regardless of key order
