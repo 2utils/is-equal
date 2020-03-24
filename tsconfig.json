@@ -2,13 +2,13 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./lib",
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "declaration": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "lib": ["es2016", "DOM"]
   },
   "exclude": ["./node_modules", "**/*.spec.ts"],
   "include": ["src/**/*.ts"]
 }
-

@@ -2,11 +2,17 @@ import isEqual from ".";
 
 const noop = function() {};
 
+function _(obj: any) {
+  return {
+    isEqual: (obj2: any) => isEqual(obj, obj2)
+  };
+}
+
 describe("isEqual", () => {
   // @ts-ignore
-  const symbol1 = Symbol ? Symbol("a") : true;
+  const symbol1 = Symbol("a");
   // @ts-ignore
-  const symbol2 = Symbol ? Symbol("b") : false;
+  const symbol2 = Symbol("b");
 
   test("should compare primitives", function() {
     const pairs = [
@@ -423,4 +429,326 @@ describe("isEqual", () => {
     expect(isEqual(args1, args2)).toBe(true);
     expect(isEqual(args1, args3)).toBe(false);
   });
+
+  // test("should compare array buffers", function() {
+  //   if (ArrayBuffer) {
+  //     const buffer = new Int8Array([-1]).buffer;
+  //
+  //     expect(isEqual(buffer, new Uint8Array([255]).buffer)).toStrictEqual(true);
+  //     expect(isEqual(buffer, new ArrayBuffer(1))).toStrictEqual(false);
+  //   }
+  // });
+
+  // test('should compare array views', function() {
+  //   lodashStable.times(2, function(index) {
+  //     var ns = index ? realm : root;
+  //
+  //     var pairs = lodashStable.map(arrayViews, function(type, viewIndex) {
+  //       var otherType = arrayViews[(viewIndex + 1) % arrayViews.length],
+  //         CtorA = ns[type] || function(n) { this.n = n; },
+  //         CtorB = ns[otherType] || function(n) { this.n = n; },
+  //         bufferA = ns[type] ? new ns.ArrayBuffer(8) : 8,
+  //         bufferB = ns[otherType] ? new ns.ArrayBuffer(8) : 8,
+  //         bufferC = ns[otherType] ? new ns.ArrayBuffer(16) : 16;
+  //
+  //       return [new CtorA(bufferA), new CtorA(bufferA), new CtorB(bufferB), new CtorB(bufferC)];
+  //     });
+  //
+  //     var expected = lodashStable.map(pairs, lodashStable.constant([true, false, false]));
+  //
+  //     var actual = lodashStable.map(pairs, function(pair) {
+  //       return [isEqual(pair[0], pair[1]), isEqual(pair[0], pair[2]), isEqual(pair[2], pair[3])];
+  //     });
+  //
+  //     assert.deepStrictEqual(actual, expected);
+  //   });
+  // });
+  //
+
+  // test("should compare buffers", function() {
+  //   if (Buffer) {
+  //     var buffer = new Buffer([1]);
+  //
+  //     expect(isEqual(buffer, new Buffer([1]))).toBe(true);
+  //     expect(isEqual(buffer, new Buffer([2]))).toBe(false);
+  //     expect(isEqual(buffer, new Uint8Array([1]))).toBe(false);
+  //   }
+  // });
+
+  test("should compare date objects", function() {
+    const date = new Date(2012, 4, 23);
+
+    expect(isEqual(date, new Date(2012, 4, 23))).toBe(true);
+    expect(isEqual(new Date("a"), new Date("b"))).toBe(true);
+    expect(isEqual(date, new Date(2013, 3, 25))).toBe(false);
+    // expect(isEqual(date, { getTime: lodashStable.constant(+date) })).toBe(
+    //   false
+    // );
+  });
+
+  // test('should compare error objects', function() {
+  //   var pairs = lodashStable.map([
+  //     'Error',
+  //     'EvalError',
+  //     'RangeError',
+  //     'ReferenceError',
+  //     'SyntaxError',
+  //     'TypeError',
+  //     'URIError'
+  //   ], function(type, index, errorTypes) {
+  //     var otherType = errorTypes[++index % errorTypes.length],
+  //       CtorA = root[type],
+  //       CtorB = root[otherType];
+  //
+  //     return [new CtorA('a'), new CtorA('a'), new CtorB('a'), new CtorB('b')];
+  //   });
+  //
+  //   var expected = lodashStable.map(pairs, lodashStable.constant([true, false, false]));
+  //
+  //   var actual = lodashStable.map(pairs, function(pair) {
+  //     return [isEqual(pair[0], pair[1]), isEqual(pair[0], pair[2]), isEqual(pair[2], pair[3])];
+  //   });
+  //
+  //   assert.deepStrictEqual(actual, expected);
+  // });
+
+  test("should compare functions ", function() {
+    function a() {
+      return 1 + 2;
+    }
+    function b() {
+      return 1 + 2;
+    }
+
+    expect(isEqual(a, a)).toStrictEqual(true);
+    expect(isEqual(a, b)).toStrictEqual(false);
+  });
+
+  // test("should compare maps", function() {
+  //   // @ts-ignore
+  //   const map1 = new Map();
+  //   // @ts-ignore
+  //   const map2 = new Map();
+  //
+  //   map1.set("a", 1);
+  //   map2.set("b", 2);
+  //   expect(isEqual(map1, map2)).toStrictEqual(false);
+  //
+  //   map1.set("b", 2);
+  //   map2.set("a", 1);
+  //   expect(isEqual(map1, map2)).toStrictEqual(true);
+  //
+  //   map1.delete("a");
+  //   map1.set("a", 1);
+  //   expect(isEqual(map1, map2)).toStrictEqual(true);
+  //
+  //   map2.delete("a");
+  //   expect(isEqual(map1, map2)).toStrictEqual(false);
+  //
+  //   map1.clear();
+  //   map2.clear();
+  // });
+
+  // test("should compare maps with circular references", function() {
+  //   // @ts-ignore
+  //   const map1 = new Map();
+  //   // @ts-ignore
+  //   const map2 = new Map();
+  //
+  //   map1.set("a", map1);
+  //   map2.set("a", map2);
+  //   expect(isEqual(map1, map2)).toStrictEqual(true);
+  //
+  //   map1.set("b", 1);
+  //   map2.set("b", 2);
+  //   expect(isEqual(map1, map2)).toStrictEqual(false);
+  // });
+
+  // test("should compare promises by reference", function() {
+  //   // @ts-ignore
+  //   const promise = Promise.resolve(1);
+  //   const realm: any = {};
+  //
+  //   // TODO(andrey): не совсем понял правльно ли переписал лодашевский тест
+  //   // @ts-ignore
+  //   expect(isEqual(promise, Promise.resolve(1))).toStrictEqual(false);
+  //   expect(isEqual(promise, realm.promise)).toStrictEqual(false);
+  //   expect(isEqual(promise, promise)).toStrictEqual(true);
+  // });
+
+  // test("should compare regexes", function() {
+  //   expect(isEqual(/x/gim, /x/gim)).toStrictEqual(true);
+  //   expect(isEqual(/x/gi, /x/g)).toStrictEqual(false);
+  //   expect(isEqual(/x/, /y/)).toStrictEqual(false);
+  //   expect(
+  //     isEqual(/x/g, {
+  //       global: true,
+  //       ignoreCase: false,
+  //       multiline: false,
+  //       source: "x"
+  //     })
+  //   ).toStrictEqual(false);
+  // });
+
+  // test("should compare sets", function() {
+  //   // @ts-ignore
+  //   const set1 = new Set();
+  //   // @ts-ignore
+  //   const set2 = new Set();
+  //
+  //   set1.add(1);
+  //   set2.add(2);
+  //   expect(isEqual(set1, set2)).toStrictEqual(false);
+  //
+  //   set1.add(2);
+  //   set2.add(1);
+  //   expect(isEqual(set1, set2)).toStrictEqual(true);
+  //
+  //   set1.delete(1);
+  //   set1.add(1);
+  //   expect(isEqual(set1, set2)).toStrictEqual(true);
+  //
+  //   set2.delete(1);
+  //   expect(isEqual(set1, set2)).toStrictEqual(false);
+  //
+  //   set1.clear();
+  //   set2.clear();
+  // });
+
+  // test("should compare sets with circular references", function() {
+  //   // @ts-ignore
+  //   const set1 = new Set();
+  //   // @ts-ignore
+  //   const set2 = new Set();
+  //
+  //   set1.add(set1);
+  //   set2.add(set2);
+  //   expect(isEqual(set1, set2)).toStrictEqual(true);
+  //
+  //   set1.add(1);
+  //   set2.add(2);
+  //   expect(isEqual(set1, set2)).toStrictEqual(false);
+  // });
+
+  // test("should compare symbol properties", function() {
+  //   const object1 = { a: 1 };
+  //   const object2 = { a: 1 };
+  //
+  //   object1[symbol1] = { a: { b: 2 } };
+  //   object2[symbol1] = { a: { b: 2 } };
+  //
+  //   defineProperty(object2, symbol2, {
+  //     configurable: true,
+  //     enumerable: false,
+  //     writable: true,
+  //     value: 2
+  //   });
+  //
+  //   expect(isEqual(object1, object2)).toStrictEqual(true);
+  //
+  //   object2[symbol1] = { a: 1 };
+  //   expect(isEqual(object1, object2)).toStrictEqual(false);
+  //
+  //   delete object2[symbol1];
+  //   // @ts-ignore
+  //   object2[Symbol("a")] = { a: { b: 2 } };
+  //   expect(isEqual(object1, object2)).toStrictEqual(false);
+  // });
+
+  // test('should compare wrapped values', function() {
+  //   var stamp = +new Date;
+  //
+  //   var values = [
+  //     [[1, 2], [1, 2], [1, 2, 3]],
+  //     [true, true, false],
+  //     [new Date(stamp), new Date(stamp), new Date(stamp - 100)],
+  //     [{ 'a': 1, 'b': 2 }, { 'a': 1, 'b': 2 }, { 'a': 1, 'b': 1 }],
+  //     [1, 1, 2],
+  //     [NaN, NaN, Infinity],
+  //     [/x/, /x/, /x/i],
+  //     ['a', 'a', 'A']
+  //   ];
+  //
+  //   lodashStable.each(values, function(vals) {
+  //     var wrapped1 = _(vals[0]),
+  //       wrapped2 = _(vals[1]),
+  //       actual = wrapped1.isEqual(wrapped2);
+  //
+  //     assert.strictEqual(actual, true);
+  //     assert.strictEqual(isEqual(_(actual), _(true)), true);
+  //
+  //     wrapped1 = _(vals[0]);
+  //     wrapped2 = _(vals[2]);
+  //
+  //     actual = wrapped1.isEqual(wrapped2);
+  //     assert.strictEqual(actual, false);
+  //     assert.strictEqual(isEqual(_(actual), _(false)), true);
+  //   });
+  // });
+
+  // test("should compare wrapped and non-wrapped values", function() {
+  //   let object1 = _({ a: 1, b: 2 });
+  //   let object2 = { a: 1, b: 2 };
+  //
+  //   expect(object1.isEqual(object2)).toStrictEqual(true);
+  //   expect(isEqual(object1, object2)).toStrictEqual(true);
+  //
+  //   object1 = _({ a: 1, b: 2 });
+  //   object2 = { a: 1, b: 1 };
+  //
+  //   expect(object1.isEqual(object2)).toStrictEqual(false);
+  //   expect(isEqual(object1, object2)).toStrictEqual(false);
+  // });
+
+  // test('should work as an iteratee for `_.every`', function() {
+  //   var actual = lodashStable.every([1, 1, 1], lodashStable.partial(isEqual, 1));
+  //   assert.ok(actual);
+  // });
+
+  // test("should not error on DOM elements", function() {
+  //   const element1 = document.createElement("div"),
+  //     element2 = element1.cloneNode(true);
+  //
+  //   try {
+  //     expect(isEqual(element1, element2)).toStrictEqual(false);
+  //   } catch (e) {
+  //    // посмотреть этот тест в лодаше
+  //     expect(e.message).toBe(false);
+  //   }
+  // });
+
+  // test('should return `true` for like-objects from different documents', function() {
+  //   if (realm.object) {
+  //     assert.strictEqual(isEqual([1], realm.array), true);
+  //     assert.strictEqual(isEqual([2], realm.array), false);
+  //     assert.strictEqual(isEqual({ 'a': 1 }, realm.object), true);
+  //     assert.strictEqual(isEqual({ 'a': 2 }, realm.object), false);
+  //   }
+  // });
+
+  // test('should return `false` for objects with custom `toString` methods', function() {
+  //   var primitive,
+  //     object = { 'toString': function() { return primitive; } },
+  //     values = [true, null, 1, 'a', undefined],
+  //     expected = lodashStable.map(values, stubFalse);
+  //
+  //   var actual = lodashStable.map(values, function(value) {
+  //     primitive = value;
+  //     return isEqual(object, value);
+  //   });
+  //
+  //   assert.deepStrictEqual(actual, expected);
+  // });
+
+  test("should return an unwrapped value when implicitly chaining", function() {
+    expect(_("a").isEqual("a")).toStrictEqual(true);
+  });
+
+  // test("should return a wrapped value when explicitly chaining", function() {
+  //   assert.ok(
+  //     _("a")
+  //       .chain()
+  //       .isEqual("a") instanceof _
+  //   );
+  // });
 });
