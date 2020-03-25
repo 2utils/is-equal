@@ -60,11 +60,11 @@ describe("isEqual", () => {
       [undefined, "", false]
     ];
 
-    const result = pairs.every(([a, b, isEqualActual]) => {
-      return isEqual(a, b) === isEqualActual;
+    pairs.forEach(([a, b, isEqualActual]) => {
+      expect(isEqual(a, b)).toBe(isEqualActual);
     });
 
-    expect(result).toBe(true);
+
   });
 
   test("should compare arrays", function() {
@@ -524,30 +524,30 @@ describe("isEqual", () => {
     expect(isEqual(a, b)).toStrictEqual(false);
   });
 
-  // test("should compare maps", function() {
-  //   // @ts-ignore
-  //   const map1 = new Map();
-  //   // @ts-ignore
-  //   const map2 = new Map();
-  //
-  //   map1.set("a", 1);
-  //   map2.set("b", 2);
-  //   expect(isEqual(map1, map2)).toStrictEqual(false);
-  //
-  //   map1.set("b", 2);
-  //   map2.set("a", 1);
-  //   expect(isEqual(map1, map2)).toStrictEqual(true);
-  //
-  //   map1.delete("a");
-  //   map1.set("a", 1);
-  //   expect(isEqual(map1, map2)).toStrictEqual(true);
-  //
-  //   map2.delete("a");
-  //   expect(isEqual(map1, map2)).toStrictEqual(false);
-  //
-  //   map1.clear();
-  //   map2.clear();
-  // });
+  test("should compare maps", function() {
+    // @ts-ignore
+    const map1 = new Map();
+    // @ts-ignore
+    const map2 = new Map();
+
+    map1.set("a", 1);
+    map2.set("b", 2);
+    expect(isEqual(map1, map2)).toStrictEqual(false);
+
+    map1.set("b", 2);
+    map2.set("a", 1);
+    expect(isEqual(map1, map2)).toStrictEqual(true);
+
+    map1.delete("a");
+    map1.set("a", 1);
+    expect(isEqual(map1, map2)).toStrictEqual(true);
+
+    map2.delete("a");
+    expect(isEqual(map1, map2)).toStrictEqual(false);
+
+    map1.clear();
+    map2.clear();
+  });
 
   // test("should compare maps with circular references", function() {
   //   // @ts-ignore
