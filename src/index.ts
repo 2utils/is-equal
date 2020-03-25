@@ -24,8 +24,8 @@ export default function isEqual(a: any, b: any): boolean {
     return false;
   }
 
-  let typeA = a.constructor.name;
-  let typeB = b.constructor.name;
+  const typeA = a.constructor.name;
+  const typeB = b.constructor.name;
 
   if (typeA !== typeB) {
     return false;
@@ -34,14 +34,11 @@ export default function isEqual(a: any, b: any): boolean {
   a = hasToValue[typeA] ? a.valueOf() : a;
   b = hasToValue[typeB] ? b.valueOf() : b;
 
-  let isNanA = a !== a;
-  let isNanB = b !== b;
-
-  if (isNanA) {
-    return isNanB;
-  }
-
   if (typeof a !== "object") {
+    if (a !== a) {
+      return b !== b;
+    }
+
     return a === b;
   }
 

@@ -63,8 +63,6 @@ describe("isEqual", () => {
     pairs.forEach(([a, b, isEqualActual]) => {
       expect(isEqual(a, b)).toBe(isEqualActual);
     });
-
-
   });
 
   test("should compare arrays", function() {

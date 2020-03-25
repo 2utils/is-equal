@@ -6,8 +6,7 @@
     "module": "commonjs",
     "declaration": true,
     "skipLibCheck": true,
-    "strict": true,
-    "lib": ["es2016", "DOM"]
+    "strict": true
   },
   "exclude": ["./node_modules", "**/*.spec.ts"],
   "include": ["src/**/*.ts"]
