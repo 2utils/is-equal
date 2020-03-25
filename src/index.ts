@@ -1,7 +1,3 @@
-import { comparePrimitiveLike, getArrayKeys, isObject } from "./utils";
-
-const toValueOfArray = ["Number", "String", "Boolean", "Date", "Symbol"];
-
 const hasToValue: any = {
   Number: true,
   String: true,
@@ -9,6 +5,15 @@ const hasToValue: any = {
   Date: true,
   Symbol: true
 };
+
+function getArrayKeys(array: any[]): number[] {
+  const keys = [];
+  for (let i = 0; i <= array.length; i++) {
+    keys.push(i);
+  }
+
+  return keys;
+}
 
 export default function isEqual(a: any, b: any): boolean {
   if (a === b) {
@@ -19,15 +24,15 @@ export default function isEqual(a: any, b: any): boolean {
     return false;
   }
 
-  let constructorNameA = a.constructor.name;
-  let constructorNameB = b.constructor.name;
+  let typeA = a.constructor.name;
+  let typeB = b.constructor.name;
 
-  if (constructorNameA !== constructorNameB) {
+  if (typeA !== typeB) {
     return false;
   }
 
-  a = hasToValue[constructorNameA] ? a.valueOf() : a;
-  b = hasToValue[constructorNameB] ? b.valueOf() : b;
+  a = hasToValue[typeA] ? a.valueOf() : a;
+  b = hasToValue[typeB] ? b.valueOf() : b;
 
   let isNanA = a !== a;
   let isNanB = b !== b;
@@ -36,19 +41,11 @@ export default function isEqual(a: any, b: any): boolean {
     return isNanB;
   }
 
-  if (isNanB) {
-    return isNanA;
-  }
-
   if (typeof a !== "object") {
     return a === b;
   }
 
-  if (typeof b !== "object") {
-    return false;
-  }
-
-  if (constructorNameA === "Map") {
+  if (typeA === "Map") {
     if (a.size !== b.size) {
       return false;
     }
@@ -64,10 +61,8 @@ export default function isEqual(a: any, b: any): boolean {
     return true;
   }
 
-  const objKeysA =
-    constructorNameA === "Array" ? getArrayKeys(a) : Object.keys(a);
-  const objKeysB =
-    constructorNameB === "Array" ? getArrayKeys(b) : Object.keys(b);
+  const objKeysA = typeA === "Array" ? getArrayKeys(a) : Object.keys(a);
+  const objKeysB = typeB === "Array" ? getArrayKeys(b) : Object.keys(b);
 
   if (objKeysA.length !== objKeysB.length) {
     return false;
