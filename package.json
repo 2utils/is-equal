@@ -1,6 +1,6 @@
 {
   "name": "@2utils/is-equal",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "An ordinary isEqual func",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

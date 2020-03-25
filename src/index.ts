@@ -41,6 +41,9 @@ export default function isEqual(a: any, b: any): boolean {
 
     return a === b;
   }
+  if (typeA === "RegExp") {
+    return a.source === b.source && a.flags === b.flags;
+  }
 
   if (typeA === "Map") {
     if (a.size !== b.size) {

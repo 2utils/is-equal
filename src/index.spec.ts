@@ -574,19 +574,19 @@ describe("isEqual", () => {
   //   expect(isEqual(promise, promise)).toStrictEqual(true);
   // });
 
-  // test("should compare regexes", function() {
-  //   expect(isEqual(/x/gim, /x/gim)).toStrictEqual(true);
-  //   expect(isEqual(/x/gi, /x/g)).toStrictEqual(false);
-  //   expect(isEqual(/x/, /y/)).toStrictEqual(false);
-  //   expect(
-  //     isEqual(/x/g, {
-  //       global: true,
-  //       ignoreCase: false,
-  //       multiline: false,
-  //       source: "x"
-  //     })
-  //   ).toStrictEqual(false);
-  // });
+  test("should compare regexes", function() {
+    expect(isEqual(/x/gim, /x/gim)).toStrictEqual(true);
+    expect(isEqual(/x/gi, /x/g)).toStrictEqual(false);
+    expect(isEqual(/x/, /y/)).toStrictEqual(false);
+    expect(
+      isEqual(/x/g, {
+        global: true,
+        ignoreCase: false,
+        multiline: false,
+        source: "x"
+      })
+    ).toStrictEqual(false);
+  });
 
   // test("should compare sets", function() {
   //   // @ts-ignore
