@@ -54,16 +54,22 @@ Tests were brazenly stolen from ```lodash```
 - [ ] should return `false` for objects with custom `toString` methods
 - [ ] should return a wrapped value when explicitly chaining
 
-| fast-deep-equal|       | x 192,807 ops/sec ±4.70% (74 runs sampled) |
-| fast-equals            | x 184,628 ops/sec ±3.08% (82 runs sampled) |
-| fast-deep-equal/es6    | x 174,303 ops/sec ±2.97% (80 runs sampled) |
-| nano-equal             | x 117,140 ops/sec ±2.71% (80 runs sampled) |
-| shallow-equal-fuzzy    | x 108,784 ops/sec ±2.30% (81 runs sampled) |
-| 💩 @2utils/is-equal    | x 74,711 ops/sec ±2.97% (83 runs sampled) |
-| underscore.isEqual     | x 61,908 ops/sec ±2.00% (86 runs sampled) |
-| util.isDeepStrictEqual | x 41,996 ops/sec ±2.06% (86 runs sampled) |
-| deep-eql               | x 29,872 ops/sec ±2.27% (82 runs sampled) |
-| lodash.isEqual         | x 29,244 ops/sec ±11.17% (82 runs sampled) |
-| deep-equal             | x 62.60 ops/sec ±4.23% (47 runs sampled) |
-| assert.deepStrictEqual | x 248 ops/sec ±2.01% (82 runs sampled) |
-| ramda.equals           | x 9,763 ops/sec ±2.94% (85 runs sampled) |
+## Benchmark
+
+Tests were run from the ```fast-deep-equal package```. They don 't show the real picture because I don 't cover all test cases. Just for fun.
+
+| pos.| package                | results                                  |        
+| :-- | :--------------------- |:-----------------------------------------|
+| 1.  | fast-deep-equal        | 192,807 ops/sec ±4.70% (74 runs sampled) |
+| 2.  | fast-equals            | 184,628 ops/sec ±3.08% (82 runs sampled) |
+| 3.  | fast-deep-equal/es6    | 174,303 ops/sec ±2.97% (80 runs sampled) |
+| 4.  | nano-equal             | 117,140 ops/sec ±2.71% (80 runs sampled) |
+| 5.  | shallow-equal-fuzzy    | 108,784 ops/sec ±2.30% (81 runs sampled) |
+| **6.**  | 💩 **@2utils/is-equal**    | **74,711 ops/sec ±2.97% (83 runs sampled)**  |
+| 7.  | underscore.isEqual     | 61,908 ops/sec ±2.00% (86 runs sampled)  |
+| 8.  | util.isDeepStrictEqual | 41,996 ops/sec ±2.06% (86 runs sampled)  |
+| 9.  | deep-eql               | 29,872 ops/sec ±2.27% (82 runs sampled)  |
+| 10. | lodash.isEqual         | 29,244 ops/sec ±11.17% (82 runs sampled) |
+| 11. | deep-equal             | 62.60 ops/sec ±4.23% (47 runs sampled)   |
+| 12. | assert.deepStrictEqual | 248 ops/sec ±2.01% (82 runs sampled)     |
+| 13. | ramda.equals           | 9,763 ops/sec ±2.94% (85 runs sampled)   |
