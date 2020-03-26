@@ -30,6 +30,7 @@ Tests were brazenly stolen from `lodash`
 - [x] should return an unwrapped value when implicitly chaining
 - [x] should compare maps
 - [x] should compare regexes
+- [x] should compare sets
 
 #### Not passed
 
@@ -46,7 +47,6 @@ Tests were brazenly stolen from `lodash`
 - [ ] should compare error objects
 - [ ] should compare maps with circular references
 - [ ] should compare promises by reference
-- [ ] should compare sets
 - [ ] should compare sets with circular references
 - [ ] should compare symbol properties
 - [ ] should compare wrapped values

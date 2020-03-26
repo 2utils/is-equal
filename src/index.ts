@@ -1,20 +1,3 @@
-const hasToValue: any = {
-  Number: true,
-  String: true,
-  Boolean: true,
-  Date: true,
-  Symbol: true
-};
-
-function getArrayKeys(array: any[]): number[] {
-  const keys = [];
-  for (let i = 0; i <= array.length; i++) {
-    keys.push(i);
-  }
-
-  return keys;
-}
-
 export default function isEqual(a: any, b: any): boolean {
   if (a === b) {
     return true;
@@ -31,9 +14,6 @@ export default function isEqual(a: any, b: any): boolean {
     return false;
   }
 
-  a = hasToValue[typeA] ? a.valueOf() : a;
-  b = hasToValue[typeB] ? b.valueOf() : b;
-
   if (typeof a !== "object") {
     if (a !== a) {
       return b !== b;
@@ -41,8 +21,9 @@ export default function isEqual(a: any, b: any): boolean {
 
     return a === b;
   }
-  if (typeA === "RegExp") {
-    return a.source === b.source && a.flags === b.flags;
+
+  if (typeA === "Date") {
+    return a.toString() === b.toString();
   }
 
   if (typeA === "Map") {
@@ -51,9 +32,7 @@ export default function isEqual(a: any, b: any): boolean {
     }
 
     for (const key of [...a.keys()]) {
-      const result = isEqual(a.get(key), b.get(key));
-
-      if (!result) {
+      if (!isEqual(a.get(key), b.get(key))) {
         return false;
       }
     }
@@ -61,17 +40,47 @@ export default function isEqual(a: any, b: any): boolean {
     return true;
   }
 
-  const objKeysA = typeA === "Array" ? getArrayKeys(a) : Object.keys(a);
-  const objKeysB = typeB === "Array" ? getArrayKeys(b) : Object.keys(b);
+  if (typeA === "Set") {
+    if (a.size !== b.size) {
+      return false;
+    }
+
+    for (const val of a.values()) {
+      if (!b.has(val)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  if (typeA === "Array") {
+    if (a.length !== b.length) {
+      return false;
+    }
+
+    for (let i = 0; i < a.length; i++) {
+      if (!isEqual(a[i], b[i])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  if (typeA === "RegExp") {
+    return a.source === b.source && a.flags === b.flags;
+  }
+
+  const objKeysA = Object.keys(a);
+  const objKeysB = Object.keys(b);
 
   if (objKeysA.length !== objKeysB.length) {
     return false;
   }
 
   for (const key of objKeysA) {
-    const result = isEqual(a[key], b[key]);
-
-    if (!result) {
+    if (!isEqual(a[key], b[key])) {
       return false;
     }
   }

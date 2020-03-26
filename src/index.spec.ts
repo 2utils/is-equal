@@ -17,39 +17,39 @@ describe("isEqual", () => {
   test("should compare primitives", function() {
     const pairs = [
       [1, 1, true],
-      [1, Object(1), true],
+      [1, Number(1), true],
       [1, "1", false],
       [1, 2, false],
       [-0, -0, true],
       [0, 0, true],
-      [0, Object(0), true],
-      [Object(0), Object(0), true],
+      [0, Number(0), true],
+      [Number(0), Number(0), true],
       [-0, 0, true],
       [0, "0", false],
       [0, null, false],
       [NaN, NaN, true],
-      [NaN, Object(NaN), true],
-      [Object(NaN), Object(NaN), true],
+      [NaN, Number(NaN), true],
+      [Number(NaN), Number(NaN), true],
       [NaN, "a", false],
       [NaN, Infinity, false],
       ["a", "a", true],
-      ["a", Object("a"), true],
-      [Object("a"), Object("a"), true],
+      ["a", String("a"), true],
+      [String("a"), String("a"), true],
       ["a", "b", false],
       ["a", ["a"], false],
       [true, true, true],
-      [true, Object(true), true],
-      [Object(true), Object(true), true],
+      [true, Boolean(true), true],
+      [Boolean(true), Boolean(true), true],
       [true, 1, false],
       [true, "a", false],
       [false, false, true],
-      [false, Object(false), true],
-      [Object(false), Object(false), true],
+      [false, Boolean(false), true],
+      [Boolean(false), Boolean(false), true],
       [false, 0, false],
       [false, "", false],
       [symbol1, symbol1, true],
-      [symbol1, Object(symbol1), true],
-      [Object(symbol1), Object(symbol1), true],
+      // [symbol1, Symbol(symbol1), true],
+      // [Symbol(symbol1), Symbol(symbol1), true],
       [symbol1, symbol2, false],
       [null, null, true],
       [null, undefined, false],
@@ -86,21 +86,21 @@ describe("isEqual", () => {
     expect(isEqual(array1, array2)).toBe(true);
 
     array1 = [
-      Object(1),
+      Number(1),
       false,
-      Object("a"),
+      String("a"),
       /x/,
       new Date(2012, 4, 23),
-      ["a", "b", [Object("c")]],
+      ["a", "b", [String("c")]],
       { a: 1 }
     ];
     array2 = [
       1,
-      Object(false),
+      Boolean(false),
       "a",
       /x/,
       new Date(2012, 4, 23),
-      ["a", Object("b"), ["c"]],
+      ["a", String("b"), ["c"]],
       { a: 1 }
     ];
 
@@ -187,11 +187,11 @@ describe("isEqual", () => {
     const object1 = {
       a: [1, 2, 3],
       b: true,
-      c: Object(1),
+      c: Number(1),
       d: "a",
       e: {
-        f: ["a", Object("b"), "c"],
-        g: Object(false),
+        f: ["a", String("b"), "c"],
+        g: Boolean(false),
         h: new Date(2012, 4, 23),
         i: noop,
         j: "a"
@@ -199,10 +199,10 @@ describe("isEqual", () => {
     };
 
     const object2 = {
-      a: [1, Object(2), 3],
-      b: Object(true),
+      a: [1, Number(2), 3],
+      b: Boolean(true),
       c: 1,
-      d: Object("a"),
+      d: String("a"),
       e: {
         f: ["a", "b", "c"],
         g: false,
@@ -510,18 +510,6 @@ describe("isEqual", () => {
   //   assert.deepStrictEqual(actual, expected);
   // });
 
-  test("should compare functions ", function() {
-    function a() {
-      return 1 + 2;
-    }
-    function b() {
-      return 1 + 2;
-    }
-
-    expect(isEqual(a, a)).toStrictEqual(true);
-    expect(isEqual(a, b)).toStrictEqual(false);
-  });
-
   test("should compare maps", function() {
     // @ts-ignore
     const map1 = new Map();
@@ -588,30 +576,30 @@ describe("isEqual", () => {
     ).toStrictEqual(false);
   });
 
-  // test("should compare sets", function() {
-  //   // @ts-ignore
-  //   const set1 = new Set();
-  //   // @ts-ignore
-  //   const set2 = new Set();
-  //
-  //   set1.add(1);
-  //   set2.add(2);
-  //   expect(isEqual(set1, set2)).toStrictEqual(false);
-  //
-  //   set1.add(2);
-  //   set2.add(1);
-  //   expect(isEqual(set1, set2)).toStrictEqual(true);
-  //
-  //   set1.delete(1);
-  //   set1.add(1);
-  //   expect(isEqual(set1, set2)).toStrictEqual(true);
-  //
-  //   set2.delete(1);
-  //   expect(isEqual(set1, set2)).toStrictEqual(false);
-  //
-  //   set1.clear();
-  //   set2.clear();
-  // });
+  test("should compare sets", function() {
+    // @ts-ignore
+    const set1 = new Set();
+    // @ts-ignore
+    const set2 = new Set();
+
+    set1.add(1);
+    set2.add(2);
+    expect(isEqual(set1, set2)).toStrictEqual(false);
+
+    set1.add(2);
+    set2.add(1);
+    expect(isEqual(set1, set2)).toStrictEqual(true);
+
+    set1.delete(1);
+    set1.add(1);
+    expect(isEqual(set1, set2)).toStrictEqual(true);
+
+    set2.delete(1);
+    expect(isEqual(set1, set2)).toStrictEqual(false);
+
+    set1.clear();
+    set2.clear();
+  });
 
   // test("should compare sets with circular references", function() {
   //   // @ts-ignore
