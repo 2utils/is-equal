@@ -3,58 +3,19 @@ export default function isEqual(a: any, b: any): boolean {
     return true;
   }
 
-  if (a == null || b == null) {
-    return false;
-  }
-
-  const typeA = a.constructor.name;
-  const typeB = b.constructor.name;
-
-  if (typeA !== typeB) {
+  if (a === null || b === null) {
     return false;
   }
 
   if (typeof a !== "object") {
-    if (a !== a) {
-      return b !== b;
-    }
-
-    return a === b;
+    return a !== a && b !== b; // isNaN || false
   }
 
-  if (typeA === "Date") {
-    return a.toString() === b.toString();
+  if (a.constructor !== b.constructor) {
+    return false;
   }
 
-  if (typeA === "Map") {
-    if (a.size !== b.size) {
-      return false;
-    }
-
-    for (const key of [...a.keys()]) {
-      if (!isEqual(a.get(key), b.get(key))) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  if (typeA === "Set") {
-    if (a.size !== b.size) {
-      return false;
-    }
-
-    for (const val of a.values()) {
-      if (!b.has(val)) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  if (typeA === "Array") {
+  if (a instanceof Array) {
     if (a.length !== b.length) {
       return false;
     }
@@ -68,18 +29,57 @@ export default function isEqual(a: any, b: any): boolean {
     return true;
   }
 
-  if (typeA === "RegExp") {
+  if (a instanceof Date) {
+    return a.valueOf() === b.valueOf();
+  }
+
+  if (a instanceof Map) {
+    if (a.size !== b.size) {
+      return false;
+    }
+
+    for (const key of a.keys()) {
+      if (!b.has(key)) {
+        return false;
+      }
+
+      if (!isEqual(a.get(key), b.get(key))) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  if (a instanceof Set) {
+    if (a.size !== b.size) {
+      return false;
+    }
+
+    for (const val of a.values()) {
+      if (!b.has(val)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  if (a instanceof RegExp) {
     return a.source === b.source && a.flags === b.flags;
   }
 
   const objKeysA = Object.keys(a);
-  const objKeysB = Object.keys(b);
 
-  if (objKeysA.length !== objKeysB.length) {
+  if (objKeysA.length !== Object.keys(b).length) {
     return false;
   }
 
   for (const key of objKeysA) {
+    if (!b.hasOwnProperty(key)) {
+      return false;
+    }
+
     if (!isEqual(a[key], b[key])) {
       return false;
     }

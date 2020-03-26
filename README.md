@@ -59,20 +59,20 @@ Tests were brazenly stolen from `lodash`
 
 ## Benchmark
 
-Tests were run from the `fast-deep-equal package`. They don 't show the real picture because I don 't cover all test cases. Just for fun.
+Tests were run from the `fast-deep-equal` package. They don 't show the real picture because I don 't cover all test cases. Just for fun.
 
 | pos.   | package                 | results                                     |
 | :----- | :---------------------- | :------------------------------------------ |
-| 1.     | fast-deep-equal         | 192,807 ops/sec ±4.70% (74 runs sampled)    |
-| 2.     | fast-equals             | 184,628 ops/sec ±3.08% (82 runs sampled)    |
-| 3.     | fast-deep-equal/es6     | 174,303 ops/sec ±2.97% (80 runs sampled)    |
-| 4.     | nano-equal              | 117,140 ops/sec ±2.71% (80 runs sampled)    |
-| 5.     | shallow-equal-fuzzy     | 108,784 ops/sec ±2.30% (81 runs sampled)    |
-| **6.** | 💩 **@2utils/is-equal** | **74,711 ops/sec ±2.97% (83 runs sampled)** |
-| 7.     | underscore.isEqual      | 61,908 ops/sec ±2.00% (86 runs sampled)     |
-| 8.     | util.isDeepStrictEqual  | 41,996 ops/sec ±2.06% (86 runs sampled)     |
-| 9.     | deep-eql                | 29,872 ops/sec ±2.27% (82 runs sampled)     |
-| 10.    | lodash.isEqual          | 29,244 ops/sec ±11.17% (82 runs sampled)    |
-| 11.    | deep-equal              | 62.60 ops/sec ±4.23% (47 runs sampled)      |
-| 12.    | assert.deepStrictEqual  | 248 ops/sec ±2.01% (82 runs sampled)        |
-| 13.    | ramda.equals            | 9,763 ops/sec ±2.94% (85 runs sampled)      |
+| 1.     | fast-deep-equal         | 218,604 ops/sec ±2.32% (80 runs sampled)    |
+| **2.** | 🐢 **@2utils/is-equal** | **201,469 ops/sec ±2.59% (83 runs sampled)** |
+| 3.     | fast-equals             | 195,025 ops/sec ±3.06% (79 runs sampled)    |
+| 4.     | fast-deep-equal/es6     | 192,544 ops/sec ±2.60% (82 runs sampled)    |
+| 5.     | nano-equal              | 126,143 ops/sec ±2.68% (79 runs sampled)    |
+| 6.     | shallow-equal-fuzzy     | 112,192 ops/sec ±1.96% (83 runs sampled)    |
+| 7.     | underscore.isEqual      | 62,441 ops/sec ±1.78% (86 runs sampled)     |
+| 8.     | util.isDeepStrictEqual  | 45,652 ops/sec ±1.69% (85 runs sampled)     |
+| 9.    | lodash.isEqual          | 34,102 ops/sec ±1.55% (87 runs sampled)    |
+| 10.     | deep-eql                | 28,662 ops/sec ±5.36% (78 runs sampled)     |
+| 11.    | ramda.equals            | 10,623 ops/sec ±1.84% (86 runs sampled)      |
+| 12.    | assert.deepStrictEqual  | 271 ops/sec ±1.22% (82 runs sampled)        |
+| 13.    | deep-equal              | 61.11 ops/sec ±4.58% (40 runs sampled)      |
