@@ -69,6 +69,23 @@ export default function isEqual(a: any, b: any): boolean {
     return a.source === b.source && a.flags === b.flags;
   }
 
+  if (a instanceof ArrayBuffer) {
+    if (a.byteLength !== b.byteLength) {
+      return false;
+    }
+
+    const intA = new Int8Array(a);
+    const intB = new Int8Array(b);
+
+    for (let i = 0; i < a.byteLength; i++) {
+      if (intA[i] !== intB[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   const objKeysA = Object.keys(a);
 
   if (objKeysA.length !== Object.keys(b).length) {

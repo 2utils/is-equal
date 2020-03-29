@@ -31,23 +31,27 @@ Tests were brazenly stolen from `lodash`
 - [x] should compare maps
 - [x] should compare regexes
 - [x] should compare sets
+- [x] should compare buffers
+- [x] should compare array buffers
 
 #### Not passed
 
+*Circular*
 - [ ] should compare arrays with circular references
 - [ ] should have transitive equivalence for circular references of arrays
 - [ ] should compare objects with circular references
 - [ ] should have transitive equivalence for circular references of objects
 - [ ] should compare objects with multiple circular references
 - [ ] should compare objects with complex circular references
-- [ ] should treat objects created by `Object.create(null)` like plain objects
-- [ ] should compare array buffers
-- [ ] should compare array views
-- [ ] should compare buffers
-- [ ] should compare error objects
 - [ ] should compare maps with circular references
-- [ ] should compare promises by reference
 - [ ] should compare sets with circular references
+
+---
+
+- [ ] should treat objects created by `Object.create(null)` like plain objects
+- [ ] should compare array views
+- [ ] should compare error objects
+- [ ] should compare promises by reference
 - [ ] should compare symbol properties
 - [ ] should compare wrapped values
 - [ ] should compare wrapped and non-wrapped values
