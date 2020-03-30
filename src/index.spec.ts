@@ -385,21 +385,22 @@ describe("isEqual", () => {
     expect(isEqual(object1, object2)).toBe(true);
   });
 
-  // test("should treat objects created by `Object.create(null)` like plain objects", function() {
-  //   class Foo {
-  //     a = 1;
-  //   }
-  //   // @ts-ignore
-  //   Foo.prototype.constructor = null;
-  //
-  //   const object1 = Object.create(null);
-  //   object1.a = 1;
-  //
-  //   const object2 = { a: 1 };
-  //
-  //   expect(isEqual(object1, object2)).toBe(true);
-  //   expect(isEqual(new Foo(), object2)).toBe(false);
-  // });
+  test("should treat objects created by `Object.create(null)` like plain objects", function() {
+    class Foo {
+      a = 1;
+    }
+
+    // @ts-ignore
+    Foo.prototype.constructor = null;
+  
+    const object1 = Object.create(null);
+    object1.a = 1;
+  
+    const object2 = { a: 1 };
+
+    expect(isEqual(object1, object2)).toBe(true);
+    expect(isEqual(new Foo(), object2)).toBe(false);
+  });
 
   test("should avoid common type coercions", function() {
     expect(isEqual(true, Object(false))).toBe(false);

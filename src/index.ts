@@ -7,11 +7,11 @@ export default function isEqual(a: any, b: any): boolean {
     return false;
   }
 
-  if (typeof a !== "object") {
+  if (typeof a !== 'object') {
     return a !== a && b !== b; // isNaN || false
   }
 
-  if (a.constructor !== b.constructor) {
+  if (a.constructor != b.constructor && 'constructor' in a && 'constructor' in b) {
     return false;
   }
 

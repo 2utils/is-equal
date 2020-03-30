@@ -33,6 +33,7 @@ Tests were brazenly stolen from `lodash`
 - [x] should compare sets
 - [x] should compare buffers
 - [x] should compare array buffers
+- [x] should treat objects created by `Object.create(null)` like plain objects
 
 #### Not passed
 
@@ -47,8 +48,6 @@ Tests were brazenly stolen from `lodash`
 - [ ] should compare sets with circular references
 
 ---
-
-- [ ] should treat objects created by `Object.create(null)` like plain objects
 - [ ] should compare array views
 - [ ] should compare error objects
 - [ ] should compare promises by reference
