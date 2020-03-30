@@ -392,10 +392,10 @@ describe("isEqual", () => {
 
     // @ts-ignore
     Foo.prototype.constructor = null;
-  
+
     const object1 = Object.create(null);
     object1.a = 1;
-  
+
     const object2 = { a: 1 };
 
     expect(isEqual(object1, object2)).toBe(true);
