@@ -1,6 +1,6 @@
 {
   "name": "@2utils/is-equal",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "An ordinary isEqual func",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,7 +8,7 @@
     "lib/**/*"
   ],
   "scripts": {
-    "build": "npm run pretty && npm run lint && tsc",
+    "build": "npm run pretty && npm run lint && tsc --downlevelIteration",
     "lint": "tslint -p tsconfig.json",
     "pretty": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "test": "jest --config jestconfig.json"
